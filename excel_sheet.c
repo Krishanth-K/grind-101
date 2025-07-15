@@ -6,17 +6,20 @@ char *ans = NULL;
 
 bool append(char **ptr, char letter, int *size)
 {
-	// make the string larger by 1 char
-	*ptr = (char *)realloc(*ptr, sizeof(char) * (*size + 1));
-	if (*ptr == NULL)
-		printf("realloc error");
-
+	// Increment size first
 	(*size)++;
 
-	// if size is n, then 1 is null char, so n-1 characters, n-2 is the last
-	// index
-	(*ptr)[*size - 2] = letter;
-	(*ptr)[*size - 1] = '\0';
+	// Then reallocate for the new size
+	*ptr = (char *)realloc(*ptr, sizeof(char) * (*size));
+	if (*ptr == NULL)
+	{
+		printf("realloc error\n");
+		return false;
+	}
+
+	// Now use the correct indexing
+	(*ptr)[*size - 2] = letter; // Place letter at second-to-last position
+	(*ptr)[*size - 1] = '\0';   // Place null terminator at last position
 
 	return true;
 }
@@ -24,11 +27,10 @@ bool append(char **ptr, char letter, int *size)
 char *revString(char *ptr, int size)
 {
 	int strLen = size - 1;
-
 	char *rev = malloc(size * sizeof(char));
 	if (!rev)
 	{
-		printf("malloc error in revString");
+		printf("malloc error in revString\n");
 		return NULL;
 	}
 
@@ -37,52 +39,50 @@ char *revString(char *ptr, int size)
 		rev[i] = ptr[strLen - 1 - i];
 	}
 	rev[strLen] = '\0';
-
 	free(ptr);
 	return rev;
 }
 
 char *convertToTitle(int columnNumber)
 {
-	int size;
+	int size = 1; // Initialize size properly
 
-	// create the final string, if null
-	if (ans == NULL)
+	// Create the initial string
+	ans = (char *)malloc(1);
+	if (!ans)
 	{
-		ans = (char *)malloc(1);
-		if (!ans)
-			printf("Malloc failure");
-
-		ans[0] = '\0';
-		size = 1;
+		printf("Malloc failure\n");
+		return NULL;
 	}
+	ans[0] = '\0';
 
 	while (columnNumber > 0)
 	{
-		// find the char offset from 'A'
+		// Find the char offset from 'A'
 		int offset = (columnNumber - 1) % 26;
-
-		// find the new col number
-		// reduce by 1 so the bug will be fixed: 26 / 26 = 1 (but it should be
-		// 0)
+		// Find the new col number
 		columnNumber = (columnNumber - 1) / 26;
-
 		char letter = (char)(offset + 65);
 
-		// add the letter to the end of string
-		append(&ans, letter, &size);
+		// Add the letter to the end of string
+		if (!append(&ans, letter, &size))
+		{
+			return NULL;
+		}
 	}
 
-	// reverse the string
+	// Reverse the string
 	ans = revString(ans, size);
-
 	return ans;
 }
 
 int main()
 {
-	char *ans = convertToTitle(28);
-
-	printf("%s", ans);
-	free(ans);
+	char *result = convertToTitle(27);
+	if (result)
+	{
+		printf("%s\n", result);
+		free(result);
+	}
+	return 0;
 }
