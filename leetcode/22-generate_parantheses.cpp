@@ -20,13 +20,11 @@ void backtrack(string current, int openCount, int closeCount, int n,
 
 	// add more (
 	if (openCount < n)
-	{
 		backtrack(current + "(", openCount + 1, closeCount, n, result);
-	}
+
+	// add more )
 	if (closeCount < openCount)
-	{
 		backtrack(current + ")", openCount, closeCount + 1, n, result);
-	}
 }
 
 class Solution {
@@ -43,4 +41,12 @@ class Solution {
 	}
 };
 
-int main() {}
+int main()
+{
+	Solution soln;
+	vector<string> result = soln.generateParenthesis(100);
+	for (const auto &e : result)
+	{
+		cout << e << ", ";
+	}
+}
