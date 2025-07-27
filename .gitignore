@@ -1,1 +1,7 @@
+**/*.elf
 *.elf
+coursework/**/*.elf
+
+# Ignore all files without an extension (likely executables)
+*.[!a-zA-Z]*
+

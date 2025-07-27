@@ -7,24 +7,19 @@ class Solution {
   public:
 	string makeFancyString(string s)
 	{
+		string result;
+		int n = s.length();
 
-		int n = s.size();
-		string result = "";
+		if (n < 3)
+			return s;
 
-		char currentChar = s[0];
-		int repeatCount = 0;
-
-		// leeetcode
-		for (int i = 0; i < n - 2; i++)
+		for (int i = 0; i < n; i++)
 		{
-			if (currentChar == s[i] && repeatCount <= 2)
-			{
-			}
+			if ((result.length() < 2) ||
+			    !(s[i] == result[result.length() - 1] &&
+			      s[i] == result[result.length() - 2]))
+				result += s[i];
 		}
-
-		// append last two chars
-		result[n - 2] = s[n - 2];
-		result[n - 1] = s[n - 1];
 
 		return result;
 	}
