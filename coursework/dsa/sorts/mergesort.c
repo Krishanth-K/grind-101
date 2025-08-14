@@ -38,7 +38,6 @@ bool mergeSort()
 
 	while (i < l1)
 	{
-
 		c[k] = a[i];
 		k++;
 		i++;
