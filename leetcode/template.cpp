@@ -6,7 +6,7 @@
 
 #include "utils/vec.hpp"
 #include <iostream>
-using std::cout, std::endl, utils::vector;
+using std::cout, std::endl, utils::vector, std::string;
 
 int main()
 {
