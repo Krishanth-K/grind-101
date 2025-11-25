@@ -4,9 +4,9 @@
 
 // url:
 
-#include "utils/vec.hpp"
 #include <iostream>
-using std::cout, std::endl, utils::vector, std::string;
+#include <vector>
+using std::cout, std::endl, std::vector, std::string;
 
 int main()
 {
