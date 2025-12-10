@@ -1,4 +1,4 @@
-# 🧠 Grind-101 — DSA, DAA & Problem Solving
+# Grind-101 — DSA, DAA & Problem Solving
 
 A collection of all the algorithmic adventures I willingly signed up for.
 LeetCode, university coursework, random practice problems — if it made me question my life choices at 2 AM, it's probably in here.
