@@ -1,5 +1,5 @@
 // tag
-// tag dynamic programming
+// tag dp
 
 // diff: medium
 
