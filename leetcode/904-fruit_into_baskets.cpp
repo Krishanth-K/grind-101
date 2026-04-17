@@ -1,88 +1,56 @@
-// tag
-// tag sliding_window
-// tag hash_table
-
-// diff: medium
-
-// url:
-// https://leetcode.com/problems/fruit-into-baskets/?envType=daily-question&envId=2025-08-04
-
+#include <algorithm>
 #include <iostream>
+#include <unordered_map>
 #include <vector>
-
-using std::cout, std::endl, std::vector;
-
-// algorithm:
-// 1. take an index: ptr start <- i
-// 2. create a window of size 2 (so i should be from 0 to size - 2)
-// 3. make the two baskets contain the two type of fruits
-//  3.1 If the two fruits are of same type, keep one basket empty
-//
+using std::cout, std::endl, std::vector, std::string;
 
 class Solution {
   public:
 	int totalFruit(vector<int> &fruits)
 	{
 		int n = fruits.size();
+		int slow = 0, fast = 0;
+		int count = 0;
 
-		if (n == 1)
-			return 1;
-		if (n == 2)
-			return 2;
+		if (n <= 2)
+			return n;
 
-		int maxCount = 0;
-		int fruitOne = 0;
-		int fruitTwo = 0;
+		// vector<int> map(n, 0);
 
-		while (fruitTwo < n)
+		// using a fixed-size array is faster than dynamic-size vector
+		int map[100001] = {0};
+
+		int distinct = 0;
+
+		for (fast = 0; fast < n; fast++)
 		{
-			// move fruitTwo so that it is different from fruitOne
-			while (fruitTwo < n && fruits[fruitTwo] == fruits[fruitOne])
-				fruitTwo++;
+			if (map[fruits[fast]] == 0)
+				distinct++;
 
-			// now fruitTwo points to the fruit that is different from first
-			// fruit
+			map[fruits[fast]]++;
 
-			// if all fruits from fruitOne to end are the same
-			if (fruitTwo >= n)
+			if (distinct >= 3)
+			// while (distinct >= 3 && slow <= fast)
 			{
-				int currentCount = fruitTwo - fruitOne;
-				maxCount = maxCount > currentCount ? maxCount : currentCount;
-				break;
+				map[fruits[slow]]--;
+
+				if (map[fruits[slow]] == 0)
+					distinct--;
+
+				slow++;
 			}
 
-			// temp fruit
-			int tempFruit = fruitTwo;
-
-			while ((fruits[tempFruit] == fruits[fruitOne] ||
-			        fruits[tempFruit] == fruits[fruitTwo]) &&
-			       tempFruit < n)
-				tempFruit++;
-
-			// now tempFruit points to the fruit that is diff from both the
-			// first and second fruits
-
-			// current count in basket
-			int currentCount = tempFruit - fruitOne;
-
-			maxCount = maxCount > currentCount ? maxCount : currentCount;
-
-			// for the next iteration, make the second fruit as first and
-			// continue
-			fruitOne = fruitTwo;
-			fruitTwo = tempFruit;
+			count = std::max(count, fast - slow + 1);
 		}
 
-		return maxCount;
+		return count;
 	}
 };
 
 int main()
 {
 	Solution soln;
-
-	vector<int> arr = {0, 1, 2, 2};
-	cout << soln.totalFruit(arr);
-
+	vector<int> a = {3, 3, 3, 1, 2, 1, 1, 2, 3, 3, 4};
+	cout << soln.totalFruit(a);
 	return 0;
 }
