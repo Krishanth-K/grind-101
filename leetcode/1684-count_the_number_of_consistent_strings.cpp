@@ -1,0 +1,32 @@
+#include <iostream>
+#include <vector>
+using std::cout, std::endl, std::vector, std::string;
+
+class Solution {
+  public:
+	int countConsistentStrings(string allowed, vector<string> &words)
+	{
+		int res = words.size();
+		bool map[26] = {};
+
+		for (char c : allowed)
+			map[c - 'a'] = true;
+
+		for (string word : words)
+		{
+			for (char c : word)
+				if (!map[c - 'a'])
+				{
+					res--;
+					break;
+				}
+		}
+		return res;
+	}
+};
+
+int main()
+{
+	Solution soln;
+	return 0;
+}

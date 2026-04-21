@@ -26,3 +26,11 @@ so remove them and push_back 5
 [4, 5]
 
 same idea for max-queue
+
+## Unique elements in window
+
+use a hashmap to store the "last seen" index of elements
+also a use a last_seen_index pointer to point to the "latest" duplicate within the window
+if the index of the "latest" duplicate goes outside the window, then the window has no duplicates
+
+look at 2461-maximum_sum_of_distinct_subarrays_with_length_k.cpp
