@@ -27,6 +27,8 @@ so remove them and push_back 5
 
 same idea for max-queue
 
+You can also store indices in the deques, to avoid complication with duplicate entries
+
 ## Unique elements in window
 
 use a hashmap to store the "last seen" index of elements

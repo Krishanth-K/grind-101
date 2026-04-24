@@ -31,7 +31,7 @@ class Solution {
 		{
 			int current = nums[fast];
 
-			// add to the queues
+			// add to the monotonic queues
 			while (min.size() > 0 && min.back() > current)
 				min.pop_back();
 			min.push_back(current);
