@@ -36,3 +36,19 @@ also a use a last_seen_index pointer to point to the "latest" duplicate within t
 if the index of the "latest" duplicate goes outside the window, then the window has no duplicates
 
 look at 2461-maximum_sum_of_distinct_subarrays_with_length_k.cpp
+
+
+## Tracking the same subarray of elements in random order
+
+567-permutation_in_string.cpp
+438-find_all_anagrams_in_a_string.cpp
+
+store the freq of the elements to track in a 'target' array 
+also keep track of the no. of 'unique' elements
+
+expand the window
+increment the cound of the new char
+if the count == target (for that char) => increment satisfied
+if window size > "source" array size: if count (element at slow ptr) == target (e at slow ptr) => decrement satisfied
+
+after shrinking, if satsified == no. of unique elements => subarray found
