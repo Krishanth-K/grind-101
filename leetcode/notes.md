@@ -2,6 +2,7 @@
 
 - Reserve space in a map to reduce the "reallocation cost"
 
+---
 
 # Window ideas
 - you can shrink the window from back, by moving slow pointer forward
@@ -52,3 +53,12 @@ if the count == target (for that char) => increment satisfied
 if window size > "source" array size: if count (element at slow ptr) == target (e at slow ptr) => decrement satisfied
 
 after shrinking, if satsified == no. of unique elements => subarray found
+
+---
+
+# Binary search
+
+## Rotated sorted array problems
+First find the sorted half.
+if (left value <= mid value) -> left half is sorted
+else -> right half is sorted
