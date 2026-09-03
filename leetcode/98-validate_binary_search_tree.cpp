@@ -6,10 +6,11 @@
 
 // url: https://leetcode.com/problems/validate-binary-search-tree/
 
-#include "utils/vec.hpp"
 #include <climits>
 #include <iostream>
-using std::cout, std::endl, utils::vector, std::string;
+#include <vector>
+
+using std::cout, std::endl, std::vector, std::string;
 
 struct TreeNode
 {

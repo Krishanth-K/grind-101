@@ -62,3 +62,62 @@ after shrinking, if satsified == no. of unique elements => subarray found
 First find the sorted half.
 if (left value <= mid value) -> left half is sorted
 else -> right half is sorted
+
+---
+
+# Trees
+
+Three main things to decide for every problem:
+```
+- What does helper(node) return? (a value, a bool, a pair, a struct...)
+- What does it mean when node is null? (this defines your base case)
+- How do I combine the left result and right result into my result?
+```
+
+If a problem involves calling a recursive helper inside the actual recursive problem (110-balanced_binary_tree),
+then merge both the functions. 
+
+
+## Stack method
+
+For probs like k-th smallest element of bst (230), recursion works, but wastes space by storing the entire inorder traversal.
+Early termination is not possible. 
+
+so the better method is to use a stack. 
+move curr pointer to the leftmost node, append nodes to teh stack along the way. 
+then check the node, decrement k, if k == 0 return the value, else move to the next least node (stack has the parent of teh current node).
+
+ex: for a isValidBST problem
+```cpp
+class Solution {
+public:
+    bool isValidBST(TreeNode* root) {
+        stack<TreeNode*> st;
+        TreeNode* curr = root;
+        TreeNode* prev = nullptr;
+
+        while (curr != nullptr || !st.empty()) {
+            // 1. Go all the way down to the leftmost node
+            while (curr != nullptr) {
+                st.push(curr);
+                curr = curr->left;
+            }
+
+            // 2. Process the current node
+            curr = st.top();
+            st.pop();
+
+            // Check the BST property: current must be strictly greater than previous
+            if (prev != nullptr && curr->val <= prev->val) {
+                return false;
+            }
+            prev = curr;
+
+            // 3. Move to the right subtree
+            curr = curr->right;
+        }
+
+        return true;
+    }
+};
+```
